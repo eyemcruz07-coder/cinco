@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>sa'yo, lagi't lagi ♡</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        overflow-x: hidden;
+        font-family: "Trebuchet MS", sans-serif;
+        background: radial-gradient(circle at top, #25204d, #0c0b1d 65%);
+        color: white;
+    }
+
+    .stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+        from {
+            opacity: .2;
+            transform: scale(.7);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1.3);
+        }
+    }
+
+    .heart {
+        position: fixed;
+        bottom: -30px;
+        color: #ff9fcf;
+        font-size: 20px;
+        animation: floatUp 7s linear infinite;
+        opacity: .7;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+
+        15% {
+            opacity: .8;
+        }
+
+        100% {
+            transform: translateY(-110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .container {
+        position: relative;
+        z-index: 2;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+    }
+
+    .page {
+        width: min(700px, 95%);
+        text-align: center;
+        padding: 45px 30px;
+        border: 1px solid rgba(255,255,255,.15);
+        border-radius: 30px;
+        background: rgba(255,255,255,.07);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    .small {
+        color: #ffb6d9;
+        letter-spacing: 3px;
+        font-size: 13px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        font-size: clamp(38px, 8vw, 65px);
+        margin-bottom: 15px;
+    }
+
+    h1 span {
+        color: #ff9dcc;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .subtitle {
+        color: #ddd7e9;
+        font-size: 17px;
+        line-height: 1.7;
+        max-width: 530px;
+        margin: auto;
+    }
+
+    button {
+        margin-top: 30px;
+        border: none;
+        padding: 13px 25px;
+        border-radius: 30px;
+        background: #ff8fc4;
+        color: #241225;
+        font-weight: bold;
+        cursor: pointer;
+        transition: .3s;
+        font-size: 15px;
+    }
+
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255,143,196,.3);
+    }
+
+    .music-button {
+        margin-top: 15px;
+        background: rgba(255,255,255,.12);
+        color: #ffd9e9;
+        border: 1px solid rgba(255,255,255,.15);
+    }
+
+    .section {
+        display: none;
+        margin-top: 35px;
+        animation: fadeIn .8s ease;
+    }
+
+    .section.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .message {
+        font-size: 18px;
+        line-height: 1.9;
+        color: #eee8f2;
+        min-height: 150px;
+    }
+
+    .cards {
+        display: grid;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .card {
+        padding: 20px;
+        border-radius: 18px;
+        background: rgba(255,255,255,.08);
+        border: 1px solid rgba(255,255,255,.08);
+        transition: .3s;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        background: rgba(255,255,255,.12);
+    }
+
+    .card h3 {
+        color: #ffafd2;
+        margin-bottom: 7px;
+    }
+
+    .card p {
+        color: #ddd7e9;
+        line-height: 1.6;
+    }
+
+    .counter {
+        margin-top: 25px;
+        font-size: 18px;
+        color: #ffc2dd;
+    }
+
+    .number {
+        font-size: 65px;
+        font-weight: bold;
+        color: white;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .final {
+        font-size: 21px;
+        line-height: 1.8;
+        color: #ffe4f1;
+        text-align: justify;
+        text-align-last: left;
+
+        max-width: 560px;
+        margin: 0 auto;     
+    }
+
+    .signature {
+        margin-top: 25px;
+        color: #ff9dcc;
+        font-size: 17px;
+    }
+
+    .progress {
+        width: 100%;
+        height: 5px;
+        background: rgba(255,255,255,.1);
+        border-radius: 10px;
+        margin-top: 30px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: #ff9dcc;
+        transition: width .5s ease;
+    }
+
+    .music-note {
+        display: inline-block;
+        animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+        from {
+            transform: translateY(0);
+        }
+
+        to {
+            transform: translateY(-4px);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="song" loop>
+    <source src="kung-nakikita-mo-lang.mp3" type="audio/mpeg">
+</audio>
+
+<div class="stars"></div>
+
+<div class="container">
+
+    <div class="page">
+
+        <!-- INTRO -->
+
+        <div id="intro">
+
+            <div class="small">for my favorite person ♡</div>
+
+            <h1>
+                happy <span>5th</span><br>
+                monthsary
+            </h1>
+
+            <p class="subtitle">
+                five months with you.
+                five months of memories,
+                conversations, laughs, and choosing each other.
+            </p>
+
+            <button onclick="playMusic(); nextSection();">
+                stay with me a little longer →
+            </button>
+
+            <br>
+
+            <button class="music-button" onclick="playMusic()">
+                <span class="music-note">♫</span>
+                play this song while reading the message
+            </button>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div class="section">
+
+            <div class="small">five months already...</div>
+
+            <div class="message" id="typing"></div>
+
+            <button onclick="nextSection()">
+                there's more →
+            </button>
+
+        </div>
+
+
+        <!-- LITTLE THINGS -->
+
+        <div class="section">
+
+            <div class="small">little things i love</div>
+
+            <h2>things i love about us ♡</h2>
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>01 — our conversations</h3>
+
+                    <p>
+                        even when we're miles apart and just doing nothing, 
+                        knowing you're out there somehow makes
+                        everything feel a little better.
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>02 — choosing each other</h3>
+
+                    <p>
+                        we're not perfect, but we don't have to be.
+                        what's important to me is that we're here
+                        still learning, and still choosing us.
+                    </p>
+
+                </div>
+
+                <div class="card">
+                    <h3>03 - simply you</h3>
+
+                    <p>
+                        i adore how you're so sure you're right,
+                        how you laugh when you try not to,
+                        how stubborn and bright you are
+                        about the things you love.
+                        even on the quiet days, when nothing much happens,
+                        you're still the best part of it,
+                        simply because it's you, avi.
+                    </p>
+                </div>
+
+            </div>
+
+            <button onclick="nextSection()">
+                one more thing →
+            </button>
+
+        </div>
+
+
+        <!-- COUNTER -->
+
+        <div class="section">
+
+            <div class="small">and somehow...</div>
+
+            <h2>we made it to five ♡</h2>
+
+            <div class="counter">
+
+                <span class="number">
+                    5
+                </span>
+
+                months of us
+
+            </div>
+
+            <p class="subtitle" style="margin-top:25px;">
+
+                five months down,
+                hopefully many more to go.
+
+            </p>
+
+            <button onclick="nextSection()">
+                keep going →
+            </button>
+
+        </div>
+
+
+        <!-- FINAL -->
+
+        <div class="section">
+
+            <div class="small">for you, always</div>
+
+            <div class="final">
+
+                <p>
+                    five months might not seem like forever,
+                    but every single second with you means
+                    a whole lot more to me than words could ever
+                    properly express.
+                </p>
+
+                <br>
+
+                <p>
+                    whenever i think about how we started,
+                    we're just two people talking about nothing,
+                    and how somehow, without either of us noticing,
+                    nothing became everything.
+                </p>
+
+                <br>
+
+                <p>
+                    thank you for staying,
+                    for loving me,
+                    for being patient with me,
+                    and for letting me be part of your life.
+                </p>
+
+                <br>
+
+                <p>
+                    thank you for the late-night calls,
+                    for the random texts that turn into memories,
+                    and for making the distance feel a little 
+                    smaller every single day.
+                </p>
+
+                <br>
+
+                <p>
+                    thank you for the days i was tired,
+                    the days i was quiet,
+                    and the days i didn't have the right words,
+                    and for choosing me anyway.
+                </p>
+
+                <br>
+
+                <p>
+                    i don't say it enough,
+                    but you make my ordinary days feel softer,
+                    and even from miles away,
+                    you still feel like home.
+                </p>
+
+                <br>
+
+                <p>
+                    i can't wait for the day
+                    the screen between us finally disappears,
+                    when "see you soon" becomes "you're here,"
+                    and every call turns into a hug i don't have 
+                    to let go of.
+                </p>
+
+                <br>
+
+                <p>
+                    until then,
+                    i'll keep counting the days,
+                    keep saving every little thing
+                    i want to tell you,
+                    and keep loving you
+                    in every way i can from here.
+                </p>
+
+                <br>
+
+                <p>
+                    here's to our 5th monthsary,
+                    and to all the little moments
+                    we haven't made yet.
+                </p>
+
+                <br>
+
+                <p>
+                    always remember that,
+                    i love you more than mickey loves minnie,
+                    than winnie loves honey,
+                    than the beast loves belle,
+                    than phineas and ferb loves perry,
+                    than dustin loves steve,
+                    than phil loves his family,
+                    than jinx loves vi,
+                    than erin loves her gang.
+                    and i'd steal all the stars 
+                    in the sky for you, avi.
+                </p>
+                
+                <br>
+
+                <p>
+                    may we have more days, more weeks,
+                    more months, more years,
+                    and more decades together.
+                    happy monthsary, my blellow. ♡
+                </p>
+
+            </div>
+
+            <div class="signature">
+                — yours forever, aj
+            </div>
+
+        </div>
+
+
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   STARS
+========================= */
+
+const stars = document.querySelector(".stars");
+
+for (let i = 0; i < 100; i++) {
+
+    const star = document.createElement("div");
+
+    star.classList.add("star");
+
+    star.style.left =
+        Math.random() * 100 + "%";
+
+    star.style.top =
+        Math.random() * 100 + "%";
+
+    star.style.animationDelay =
+        Math.random() * 2 + "s";
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+function createHeart() {
+
+    const heart =
+        document.createElement("div");
+
+    heart.classList.add("heart");
+
+    heart.innerHTML =
+        ["♡", "♥", "୨୧"][Math.floor(
+            Math.random() * 3
+        )];
+
+    heart.style.left =
+        Math.random() * 100 + "%";
+
+    heart.style.fontSize =
+        12 + Math.random() * 20 + "px";
+
+    heart.style.animationDuration =
+        5 + Math.random() * 5 + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 10000);
+}
+
+setInterval(createHeart, 700);
+
+
+/* =========================
+   MUSIC
+========================= */
+
+const song =
+    document.getElementById("song");
+
+function playMusic() {
+
+    song.volume = 0.45;
+
+    song.play().catch(() => {
+
+        alert(
+            "click the play button once more to start the music ♡"
+        );
+
+    });
+
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+const sections =
+    document.querySelectorAll(".section");
+
+let current = -1;
+
+function nextSection() {
+
+    if (current === -1) {
+
+        document.getElementById("intro")
+            .style.display = "none";
+
+    } else {
+
+        sections[current]
+            .classList.remove("active");
+
+    }
+
+    current++;
+
+    if (current < sections.length) {
+
+        sections[current]
+            .classList.add("active");
+
+        updateProgress();
+
+    }
+
+    if (current === 0) {
+
+        typeMessage();
+
+    }
+
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+function updateProgress() {
+
+    const progress =
+        ((current + 1) /
+        sections.length) * 100;
+
+    document.querySelector(".progress-bar")
+        .style.width = progress + "%";
+
+}
+
+
+/* =========================
+   TYPEWRITER MESSAGE
+========================= */
+
+const message =
+
+"five months with you, and somehow i still get that same little feeling whenever i think about us. thank you for all the laughs, the random conversations, the quiet moments, the patience, and even the difficult days that taught us how to understand each other better. i'm really grateful that out of everyone in this world, i get to experience all of these moments with you. i hope you know that i appreciate you more than i probably say. happy 5th monthsary, baby. ♡";
+
+
+let index = 0;
+
+function typeMessage() {
+
+    const typing =
+        document.getElementById("typing");
+
+    typing.innerHTML = "";
+
+    index = 0;
+
+    const interval =
+        setInterval(() => {
+
+            typing.innerHTML +=
+                message[index];
+
+            index++;
+
+            if (index >= message.length) {
+
+                clearInterval(interval);
+
+            }
+
+        }, 28);
+
+}
+
+</script>
+
+</body>
+</html>
